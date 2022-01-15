@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <title>Contact Form</title>
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/css/intlTelInput.min.css" />
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/intlTelInput.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/utils.min.js"></script>
+
+</head>
+
+<body>
+    <div class="form__container">
+        <div class="form_title">
+            <h3>Tell us about you</h3>
+            <span>Please tell a bit about you so that we can personalize your onboarding experience.</span>
+        </div>
+
+        <form class="contact_form" action="#">
+
+            <fieldset>
+                <legend>You are looking for,</legend>
+                <div class="toggle">
+
+                    <input type="radio" name="choice1" value="designs" id="designs" checked="checked" />
+                    <label for="designs"><i class="uil uil-illustration"></i>Designs</label>
+                    <input type="radio" name="choice1" value="projects" id="projects" />
+                    <label for="projects"><i class="uil uil-file-alt"></i>Projects</label>
+
+                </div>
+            </fieldset>
+
+            <label for="name">Full Name</label>
+            <input type="text" name="name" id="name" required>
+
+
+            <label for="location">Location</label>
+            <input type="text" name="location" id="location">
+
+
+            <!-- Phone number input form with flags -->
+
+
+            <label for="phone">Phone Number</label>
+            <input type="text" name="phone" id="phone" required />
+
+
+
+            <button class="submit_btn" type="submit">Proceed to next step <i class="uil uil-arrow-right"></i></button>
+
+        </form>
+    </div>
+
+    <script>
+        var input = document.querySelector("#phone");
+        intlTelInput(input, {
+            initialCountry: "auto",
+            geoIpLookup: function (success, failure) {
+                $.get("https://ipinfo.io", function () { }, "jsonp").always(function (resp) {
+                    var countryCode = (resp && resp.country) ? resp.country : "in";
+                    success(countryCode);
+                });
+            },
+        });
+    </script>
+</body>
+
+</html>
